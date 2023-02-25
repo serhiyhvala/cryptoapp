@@ -1,8 +1,6 @@
 import {
-	BulbOutlined,
 	FundOutlined,
 	HomeOutlined,
-	MoneyCollectOutlined,
 	MenuOutlined
 } from '@ant-design/icons'
 import { Avatar, Menu, Typography, Button } from 'antd'
