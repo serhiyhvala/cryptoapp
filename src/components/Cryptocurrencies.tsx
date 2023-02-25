@@ -10,7 +10,7 @@ export interface ICryptocurrenciesProps {
 }
 
 const Cryptocurrencies: FC<ICryptocurrenciesProps> = ({ simplifed }) => {
-	const count = simplifed ? 10 : 100
+	const count = simplifed ? 10 : 500
 	const { data: cryptosList } = useGetCryptosByLimitQuery(count)
 	const [cryptos, setCryptos] = useState(cryptosList?.data.coins)
 	const [searchTerm, setSearchTerm] = useState('')
