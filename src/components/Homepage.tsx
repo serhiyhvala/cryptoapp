@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { useGetCryptosQuery } from '../services/cryptoApi'
 
 import Cryptocurrencies from './Cryptocurrencies'
-import News from './News'
 
 const { Title } = Typography
 
@@ -63,7 +62,6 @@ const Homepage = () => {
 					<Link to='/news'>Show More</Link>
 				</Title>
 			</div>
-			<News />
 		</>
 	)
 }
