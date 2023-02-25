@@ -3,12 +3,61 @@ export interface getCoins {
 	data: Data
 }
 
-export interface Data {
+export interface CoinDetail {
+    status: string;
+    data:   Data;
+}
+
+interface Data {
+    coin: Coin;
+}
+
+interface Coin {
+    uuid:              string;
+    symbol:            string;
+    name:              string;
+    description:       string;
+    color:             string;
+    iconUrl:           string;
+    websiteUrl:        string;
+    links:             Link[];
+    supply:            Supply;
+    "24hVolume":       string;
+    marketCap:         string;
+    price:             string;
+    btcPrice:          string;
+    change:            string;
+    rank:              number;
+    numberOfMarkets:   number;
+    numberOfExchanges: number;
+    sparkline:         string[];
+    allTimeHigh:       AllTimeHigh;
+    coinrankingUrl:    string;
+}
+
+interface AllTimeHigh {
+    price:     string;
+    timestamp: number;
+}
+
+interface Link {
+    name: string;
+    url:  string;
+    type: string;
+}
+
+interface Supply {
+    confirmed:   boolean;
+    circulating: string;
+    total:       string;
+}
+
+interface Data {
 	stats: Stats
 	coins: Coin[]
 }
 
-export interface Coin {
+interface Coin {
 	uuid: string
 	symbol: string
 	name: string
@@ -25,7 +74,7 @@ export interface Coin {
 	'24hVolume': string
 }
 
-export interface Stats {
+interface Stats {
 	total: number
 	totalCoins: number
 	totalMarkets: number

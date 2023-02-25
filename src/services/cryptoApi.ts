@@ -1,4 +1,4 @@
-import { getCoins } from './cryptoApi.types';
+import { getCoins, CoinDetail } from './cryptoApi.types';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const cryptoApiHeaders = {
@@ -11,7 +11,7 @@ const createRequest = (url: string) => ({ url, headers: cryptoApiHeaders })
 export const cryptoApi = createApi({
 	reducerPath: 'cryptoApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: 'https://coinranking1.p.rapidapi.com/'
+		baseUrl: 'https://coinranking1.p.rapidapi.com'
 	}),
 	endpoints: builder => ({
 		getCryptos: builder.query<getCoins, string>({
@@ -19,8 +19,11 @@ export const cryptoApi = createApi({
 		}),
 		getCryptosByLimit: builder.query<getCoins, number>({
 			query: (count) => createRequest(`/coins?limit=${count}`)
+		}),
+		getCryptoDetail: builder.query<CoinDetail, string | undefined>({
+			query: (coinId) => createRequest(`/coin/${coinId}`)
 		})
 	})
 })
 
-export const { useGetCryptosQuery, useGetCryptosByLimitQuery } = cryptoApi
+export const { useGetCryptosQuery, useGetCryptosByLimitQuery, useGetCryptoDetailQuery } = cryptoApi
