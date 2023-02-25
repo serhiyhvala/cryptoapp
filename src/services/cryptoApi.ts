@@ -1,4 +1,4 @@
-import { getCoins, CoinDetail } from './cryptoApi.types';
+import { getCoins, CoinDetail, CoinHistory } from './cryptoApi.types';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const cryptoApiHeaders = {
@@ -22,8 +22,11 @@ export const cryptoApi = createApi({
 		}),
 		getCryptoDetail: builder.query<CoinDetail, string | undefined>({
 			query: (coinId) => createRequest(`/coin/${coinId}`)
+		}),
+		getCryptoHistory: builder.query<CoinHistory, {coinId?: string, timePeriod: string}>({
+			query: ({coinId, timePeriod}) => createRequest(`/coin/${coinId}/history?timePeriod=${timePeriod}`)
 		})
 	})
 })
 
-export const { useGetCryptosQuery, useGetCryptosByLimitQuery, useGetCryptoDetailQuery } = cryptoApi
+export const { useGetCryptosQuery, useGetCryptosByLimitQuery, useGetCryptoDetailQuery, useGetCryptoHistoryQuery } = cryptoApi

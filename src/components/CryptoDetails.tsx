@@ -15,7 +15,9 @@ import millify from 'millify'
 import { ReactNode, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useGetCryptoDetailQuery } from '../services/cryptoApi'
+import { useGetCryptoDetailQuery, useGetCryptoHistoryQuery } from '../services/cryptoApi'
+
+import CoinStatistics from './CoinStatistics'
 
 const { Title, Text } = Typography
 const { Option } = Select
@@ -34,10 +36,12 @@ export interface IGenericStats {
 
 const CryptoDetails = () => {
 	const { coinId } = useParams()
-	const { data } = useGetCryptoDetailQuery(coinId)
 	const [timePeriod, setTimePeriod] = useState('7d')
+	const { data } = useGetCryptoDetailQuery(coinId)
+	const {data: coinHistory} = useGetCryptoHistoryQuery({coinId, timePeriod})
 	const cryptoDetails = data?.data?.coin
 	const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y']
+	const currentPrice = cryptoDetails?.price && millify(+cryptoDetails?.price)
 
 	const stats: IStats[] = [
 		{
@@ -127,6 +131,7 @@ const CryptoDetails = () => {
 					<Option key={date}>{date}</Option>
 				))}
 			</Select>
+			<CoinStatistics coinHistory={coinHistory} currentPrice={currentPrice} coinName={cryptoDetails?.name}/>
 			<Col className='stats-container'>
 				<Col className='coin-value-statistics'>
 					<Col className='coin-value-statistics-heading'>
@@ -180,7 +185,9 @@ const CryptoDetails = () => {
 								<Title level={5} className='link-name'>
 									{item.type}
 								</Title>
-								<a href={item.url} target='_blank' rel="noreferrer">{item.name}</a>
+								<a href={item.url} target='_blank' rel='noreferrer'>
+									{item.name}
+								</a>
 							</Row>
 						))}
 					</Col>

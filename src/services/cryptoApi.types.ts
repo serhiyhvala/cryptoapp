@@ -1,12 +1,28 @@
 export interface getCoins {
 	status: string
-	data: Data
+	data: IData
 }
 
 export interface CoinDetail {
     status: string;
     data:   Data;
 }
+
+export interface CoinHistory {
+    status: string;
+    data:   DataHistory;
+}
+
+interface DataHistory {
+    change:  string;
+    history: History[];
+}
+
+interface History {
+    price:     string;
+    timestamp: number;
+}
+
 
 interface Data {
     coin: Coin;
@@ -52,7 +68,7 @@ interface Supply {
     total:       string;
 }
 
-interface Data {
+interface IData {
 	stats: Stats
 	coins: Coin[]
 }
